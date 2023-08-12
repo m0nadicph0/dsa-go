@@ -662,3 +662,37 @@ func TestRemoveAll(t *testing.T) {
 		})
 	}
 }
+
+func TestRemoveConsecutive(t *testing.T) {
+	tests := []struct {
+		name  string
+		input []int
+		want  []int
+	}{
+		{
+			name:  "empty array",
+			input: []int{},
+			want:  []int{},
+		},
+		{
+			name:  "non empty case 1",
+			input: []int{1, 2, 2, 3, 3},
+			want:  []int{1, 2, 3},
+		},
+		{
+			name:  "non empty case 2",
+			input: []int{1, 2, 3, 2, 3, 3},
+			want:  []int{1, 2, 3, 2, 3},
+		},
+		{
+			name:  "non empty case 3",
+			input: []int{1, 2, 3, 4, 5, 6},
+			want:  []int{1, 2, 3, 4, 5, 6},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, RemoveConsecutive(tt.input), "RemoveConsecutive(%v)", tt.input)
+		})
+	}
+}

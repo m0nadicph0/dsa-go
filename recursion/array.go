@@ -157,3 +157,13 @@ func RemoveAll(arr []int, target int) []int {
 	}
 	return append([]int{arr[0]}, RemoveAll(arr[1:], target)...)
 }
+
+func RemoveConsecutive(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	if arr[0] == arr[1] {
+		return RemoveConsecutive(arr[1:])
+	}
+	return append([]int{arr[0]}, RemoveConsecutive(arr[1:])...)
+}
