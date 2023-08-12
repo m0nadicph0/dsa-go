@@ -477,3 +477,50 @@ func TestPrintAllOccurrence(t *testing.T) {
 		})
 	}
 }
+
+func TestCountOccurrence(t *testing.T) {
+	type args struct {
+	}
+	tests := []struct {
+		name   string
+		a      []int
+		target int
+		want   int
+	}{
+		{
+			name:   "empty array",
+			a:      []int{},
+			target: 1,
+			want:   0,
+		},
+		{
+			name:   "one element array",
+			a:      []int{1},
+			target: 1,
+			want:   1,
+		},
+		{
+			name:   "multi element array with multiple occurrence of target",
+			a:      []int{1, 1, 1, 2, 2},
+			target: 1,
+			want:   3,
+		},
+		{
+			name:   "multi element array with single occurrence of target",
+			a:      []int{1, 1, 1, 2, 2, 3},
+			target: 3,
+			want:   1,
+		},
+		{
+			name:   "multi element array with no occurrence of target",
+			a:      []int{1, 1, 1, 2, 2, 3},
+			target: 4,
+			want:   0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, CountOccurrence(tt.a, tt.target), "CountOccurrence(%v, %v)", tt.a, tt.target)
+		})
+	}
+}

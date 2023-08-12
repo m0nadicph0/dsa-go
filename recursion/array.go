@@ -108,3 +108,15 @@ func printAllOccurrenceRec(w io.Writer, a []int, target int, index int) {
 	}
 	printAllOccurrenceRec(w, a[1:], target, index+1)
 }
+
+func CountOccurrence(a []int, target int) int {
+	if len(a) == 0 {
+		return 0
+	}
+	thisCount := 0
+	if a[0] == target {
+		thisCount += 1
+	}
+
+	return CountOccurrence(a[1:], target) + thisCount
+}
