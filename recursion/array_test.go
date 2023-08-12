@@ -226,3 +226,85 @@ func TestIsSorted(t *testing.T) {
 		})
 	}
 }
+
+func TestSum(t *testing.T) {
+
+	tests := []struct {
+		name string
+		args []int
+		want int
+	}{
+		{
+			name: "empty array",
+			args: []int{},
+			want: 0,
+		},
+		{
+			name: "single element array",
+			args: []int{1},
+			want: 1,
+		},
+		{
+			name: "sorted array",
+			args: []int{1, 2, 3, 4, 5},
+			want: 15,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, Sum(tt.args), "Sum(%v)", tt.args)
+		})
+	}
+}
+
+func TestIsPresent(t *testing.T) {
+
+	tests := []struct {
+		name   string
+		input  []int
+		target int
+		want   bool
+	}{
+		{
+			name:   "empty array",
+			input:  []int{},
+			target: 0,
+			want:   false,
+		},
+		{
+			name:   "single element array with target",
+			input:  []int{1},
+			target: 1,
+			want:   true,
+		},
+		{
+			name:   "single element array without target",
+			input:  []int{1},
+			target: 2,
+			want:   false,
+		},
+		{
+			name:   "multiple element array with target at start",
+			input:  []int{1, 2, 3, 4},
+			target: 1,
+			want:   true,
+		},
+		{
+			name:   "multiple element array with target at end",
+			input:  []int{1, 2, 3, 4},
+			target: 4,
+			want:   true,
+		},
+		{
+			name:   "multiple element array without target",
+			input:  []int{1, 2, 3, 4},
+			target: 5,
+			want:   false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, IsPresent(tt.input, tt.target), "IsPresent(%v, %v)", tt.input, tt.target)
+		})
+	}
+}

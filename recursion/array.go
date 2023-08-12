@@ -53,3 +53,17 @@ func IsSorted(a []int) bool {
 	}
 	return (a[0] < a[1]) && IsSorted(a[1:])
 }
+
+func Sum(a []int) int {
+	if len(a) == 0 {
+		return 0
+	}
+	return a[0] + Sum(a[1:])
+}
+
+func IsPresent(a []int, target int) bool {
+	if len(a) == 0 {
+		return false
+	}
+	return (a[0] == target) || IsPresent(a[1:], target)
+}
