@@ -46,3 +46,10 @@ func Replace(input []int, target, replacement int) {
 	}
 	Replace(input[1:], target, replacement)
 }
+
+func IsSorted(a []int) bool {
+	if len(a) <= 1 {
+		return true
+	}
+	return (a[0] < a[1]) && IsSorted(a[1:])
+}

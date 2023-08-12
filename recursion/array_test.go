@@ -186,3 +186,43 @@ func TestReplace(t *testing.T) {
 	}
 
 }
+
+func TestIsSorted(t *testing.T) {
+
+	tests := []struct {
+		name string
+		args []int
+		want bool
+	}{
+		{
+			name: "base case 1",
+			args: []int{},
+			want: true,
+		},
+		{
+			name: "base case 2",
+			args: []int{1},
+			want: true,
+		},
+		{
+			name: "sorted array",
+			args: []int{1, 2, 3, 4},
+			want: true,
+		},
+		{
+			name: "unsorted array",
+			args: []int{4, 1, 2, 3},
+			want: false,
+		},
+		{
+			name: "sorted array in reverse order",
+			args: []int{4, 3, 2, 1},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, IsSorted(tt.args), "IsSorted(%v)", tt.args)
+		})
+	}
+}

@@ -109,3 +109,43 @@ func TestMultiply(t *testing.T) {
 		})
 	}
 }
+
+func TestCountZeros(t *testing.T) {
+
+	tests := []struct {
+		name string
+		n    int
+		want int
+	}{
+		{
+			name: "base case 1",
+			n:    0,
+			want: 1,
+		},
+		{
+			name: "base case 2",
+			n:    1,
+			want: 0,
+		},
+		{
+			name: "case 1",
+			n:    1010,
+			want: 2,
+		},
+		{
+			name: "case 2",
+			n:    1_000_000,
+			want: 6,
+		},
+		{
+			name: "case 2",
+			n:    1_111_111,
+			want: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, CountZeros(tt.n), "CountZeros(%v)", tt.n)
+		})
+	}
+}

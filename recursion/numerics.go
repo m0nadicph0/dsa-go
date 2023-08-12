@@ -20,3 +20,18 @@ func Multiply(m int, n int) int {
 	}
 	return Multiply(m, n-1) + m
 }
+
+func CountZeros(n int) int {
+	if n < 10 {
+		return countZeroDigit(n)
+	}
+	return CountZeros(n/10) + countZeroDigit(n%10)
+}
+
+func countZeroDigit(n int) int {
+	if n == 0 {
+		return 1
+	} else {
+		return 0
+	}
+}
