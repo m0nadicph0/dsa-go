@@ -167,3 +167,20 @@ func RemoveConsecutive(arr []int) []int {
 	}
 	return append([]int{arr[0]}, RemoveConsecutive(arr[1:])...)
 }
+
+func GetAllSubsequences(input string) []string {
+	result := make([]string, 0)
+	forEachSubsequence(input, "", func(s string) {
+		result = append(result, s)
+	})
+	return result
+}
+
+func forEachSubsequence(s string, output string, fm func(s string)) {
+	if len(s) == 0 {
+		fm(output)
+		return
+	}
+	forEachSubsequence(s[1:], output, fm)
+	forEachSubsequence(s[1:], output+string(s[0]), fm)
+}

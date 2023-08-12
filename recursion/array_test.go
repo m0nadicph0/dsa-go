@@ -696,3 +696,34 @@ func TestRemoveConsecutive(t *testing.T) {
 		})
 	}
 }
+
+func TestGetAllSubsequences(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		input string
+		want  []string
+	}{
+		{
+			name:  "case 1",
+			input: "abc",
+			want:  []string{"", "a", "b", "c", "ab", "ac", "bc", "abc"},
+		},
+		{
+			name:  "case 2",
+			input: "xy",
+			want:  []string{"", "x", "y", "xy"},
+		},
+		{
+			name:  "case 3",
+			input: "",
+			want:  []string{""},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := GetAllSubsequences(tt.input)
+			assert.ElementsMatch(t, tt.want, result)
+		})
+	}
+}
