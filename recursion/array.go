@@ -146,3 +146,14 @@ func IsPalindrome(a []int) bool {
 	}
 	return (a[0] == a[len(a)-1]) && IsPalindrome(a[1:len(a)-1])
 }
+
+func RemoveAll(arr []int, target int) []int {
+	if len(arr) == 0 {
+		return arr
+	}
+
+	if arr[0] == target {
+		return RemoveAll(arr[1:], target)
+	}
+	return append([]int{arr[0]}, RemoveAll(arr[1:], target)...)
+}

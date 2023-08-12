@@ -622,3 +622,43 @@ func TestIsPalindrome(t *testing.T) {
 		})
 	}
 }
+
+func TestRemoveAll(t *testing.T) {
+
+	tests := []struct {
+		name   string
+		args   []int
+		target int
+		want   []int
+	}{
+		{
+			name:   "empty array",
+			args:   []int{},
+			target: 0,
+			want:   []int{},
+		},
+		{
+			name:   "non empty array with target",
+			args:   []int{1, 2, 3, 1, 2},
+			target: 1,
+			want:   []int{2, 3, 2},
+		},
+		{
+			name:   "non empty array with target alternate case",
+			args:   []int{1, 2, 2, 2, 2, 2},
+			target: 2,
+			want:   []int{1},
+		},
+		{
+			name:   "non empty array without target",
+			args:   []int{1, 2, 2, 2, 2, 2},
+			target: 3,
+			want:   []int{1, 2, 2, 2, 2, 2},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, RemoveAll(tt.args, tt.target), "RemoveAll(%v, %v)", tt.args, tt.target)
+		})
+	}
+}
