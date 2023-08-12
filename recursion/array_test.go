@@ -417,3 +417,63 @@ func TestLastIndexOf(t *testing.T) {
 		})
 	}
 }
+
+func TestPrintAllOccurrence(t *testing.T) {
+
+	tests := []struct {
+		name   string
+		a      []int
+		target int
+		wantW  string
+	}{
+		{
+			name:   "empty array",
+			a:      []int{},
+			target: 2,
+			wantW:  "",
+		},
+		{
+			name:   "single element array with target",
+			a:      []int{1},
+			target: 1,
+			wantW:  "0",
+		},
+		{
+			name:   "single element array without target",
+			a:      []int{1},
+			target: 2,
+			wantW:  "",
+		},
+		{
+			name:   "non empty array with repetition",
+			a:      []int{1, 2, 3, 2},
+			target: 2,
+			wantW:  "13",
+		},
+		{
+			name:   "non empty array without repetition",
+			a:      []int{1, 2, 3, 4},
+			target: 4,
+			wantW:  "3",
+		},
+		{
+			name:   "non empty array with all elements repeated",
+			a:      []int{1, 1, 1, 1},
+			target: 1,
+			wantW:  "0123",
+		},
+		{
+			name:   "non empty array with all elements repeated but target not present",
+			a:      []int{1, 1, 1, 1},
+			target: 2,
+			wantW:  "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			w := &bytes.Buffer{}
+			PrintAllOccurrence(w, tt.a, tt.target)
+			assert.Equalf(t, tt.wantW, w.String(), "PrintAllOccurrence(%v, %v, %v)", w, tt.a, tt.target)
+		})
+	}
+}

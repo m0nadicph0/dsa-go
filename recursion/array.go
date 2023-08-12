@@ -94,3 +94,17 @@ func lastIndex(a []int, target int, end int) int {
 	}
 	return lastIndex(a[0:last], target, end-1)
 }
+
+func PrintAllOccurrence(w io.Writer, a []int, target int) {
+	printAllOccurrenceRec(w, a, target, 0)
+}
+
+func printAllOccurrenceRec(w io.Writer, a []int, target int, index int) {
+	if len(a) == 0 {
+		return
+	}
+	if a[0] == target {
+		fmt.Fprint(w, index)
+	}
+	printAllOccurrenceRec(w, a[1:], target, index+1)
+}
