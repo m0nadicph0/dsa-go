@@ -67,3 +67,30 @@ func IsPresent(a []int, target int) bool {
 	}
 	return (a[0] == target) || IsPresent(a[1:], target)
 }
+
+func FirstIndexOf(a []int, target int) int {
+	return firstIndex(a, target, 0)
+}
+func firstIndex(a []int, target int, start int) int {
+	if len(a) == 0 {
+		return -1
+	}
+	if a[0] == target {
+		return start
+	}
+	return firstIndex(a[1:], target, start+1)
+}
+
+func LastIndexOf(a []int, target int) int {
+	return lastIndex(a, target, len(a)-1)
+}
+func lastIndex(a []int, target int, end int) int {
+	last := len(a) - 1
+	if len(a) == 0 {
+		return -1
+	}
+	if a[last] == target {
+		return end
+	}
+	return lastIndex(a[0:last], target, end-1)
+}

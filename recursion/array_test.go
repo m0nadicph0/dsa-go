@@ -308,3 +308,112 @@ func TestIsPresent(t *testing.T) {
 		})
 	}
 }
+
+func TestFirstIndexOf(t *testing.T) {
+
+	tests := []struct {
+		name   string
+		args   []int
+		target int
+		want   int
+	}{
+		{
+			name:   "base case",
+			args:   []int{},
+			target: 1,
+			want:   -1,
+		},
+		{
+			name:   "single element array with target",
+			args:   []int{1},
+			target: 1,
+			want:   0,
+		},
+		{
+			name:   "non empty array with target at start",
+			args:   []int{1, 0, 20, 10},
+			target: 1,
+			want:   0,
+		},
+		{
+			name:   "non empty array with target at end",
+			args:   []int{1, 0, 20, 10},
+			target: 10,
+			want:   3,
+		},
+		{
+			name:   "non empty array with repetition",
+			args:   []int{1, 0, 0, 1},
+			target: 0,
+			want:   1,
+		},
+		{
+			name:   "non empty array with repetition at start",
+			args:   []int{1, 1, 0, 1},
+			target: 1,
+			want:   0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, FirstIndexOf(tt.args, tt.target), "FirstIndexOf(%v)", tt.args)
+		})
+	}
+}
+
+func TestLastIndexOf(t *testing.T) {
+	tests := []struct {
+		name   string
+		args   []int
+		target int
+		want   int
+	}{
+		{
+			name:   "base case",
+			args:   []int{},
+			target: 1,
+			want:   -1,
+		},
+		{
+			name:   "single element array with target",
+			args:   []int{1},
+			target: 1,
+			want:   0,
+		},
+		{
+			name:   "non empty array with target at start",
+			args:   []int{1, 0, 20, 10},
+			target: 1,
+			want:   0,
+		},
+		{
+			name:   "non empty array with target at end",
+			args:   []int{1, 0, 20, 10},
+			target: 10,
+			want:   3,
+		},
+		{
+			name:   "non empty array with repetition",
+			args:   []int{1, 0, 0, 1},
+			target: 0,
+			want:   2,
+		},
+		{
+			name:   "non empty array with repetition at start",
+			args:   []int{1, 1, 0, 0},
+			target: 1,
+			want:   1,
+		},
+		{
+			name:   "non empty array with repetition at both ends",
+			args:   []int{1, 1, 0, 0, 1, 1},
+			target: 1,
+			want:   5,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, LastIndexOf(tt.args, tt.target), "LastIndexOf(%v)", tt.args)
+		})
+	}
+}
