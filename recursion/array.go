@@ -139,3 +139,10 @@ func storeAllOccurrenceRec(a []int, target int, index int, fn func(int)) {
 
 	storeAllOccurrenceRec(a[1:], target, index+1, fn)
 }
+
+func IsPalindrome(a []int) bool {
+	if len(a) <= 1 {
+		return true
+	}
+	return (a[0] == a[len(a)-1]) && IsPalindrome(a[1:len(a)-1])
+}

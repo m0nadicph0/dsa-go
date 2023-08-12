@@ -582,3 +582,43 @@ func TestStoreAllOccurrence(t *testing.T) {
 		})
 	}
 }
+
+func TestIsPalindrome(t *testing.T) {
+
+	tests := []struct {
+		name string
+		a    []int
+		want bool
+	}{
+		{
+			name: "single element array",
+			a:    []int{1},
+			want: true,
+		},
+		{
+			name: "double element array",
+			a:    []int{1, 2},
+			want: false,
+		},
+		{
+			name: "multi element palindromic array of odd size",
+			a:    []int{1, 2, 1},
+			want: true,
+		},
+		{
+			name: "multi element palindromic array of even size",
+			a:    []int{1, 2, 2, 1},
+			want: true,
+		},
+		{
+			name: "multi element non-palindromic array",
+			a:    []int{1, 2, 1, 2},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, IsPalindrome(tt.a), "IsPalindrome(%v)", tt.a)
+		})
+	}
+}
