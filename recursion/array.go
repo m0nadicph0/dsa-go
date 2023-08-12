@@ -113,10 +113,10 @@ func CountOccurrence(a []int, target int) int {
 	if len(a) == 0 {
 		return 0
 	}
-	thisCount := 0
-	if a[0] == target {
-		thisCount += 1
-	}
 
-	return CountOccurrence(a[1:], target) + thisCount
+	if a[0] == target {
+		return CountOccurrence(a[1:], target) + 1
+	} else {
+		return CountOccurrence(a[1:], target) + 0
+	}
 }
