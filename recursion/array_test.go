@@ -524,3 +524,61 @@ func TestCountOccurrence(t *testing.T) {
 		})
 	}
 }
+
+func TestStoreAllOccurrence(t *testing.T) {
+	tests := []struct {
+		name   string
+		a      []int
+		target int
+		wantW  []int
+	}{
+		{
+			name:   "empty array",
+			a:      []int{},
+			target: 2,
+			wantW:  []int{},
+		},
+		{
+			name:   "single element array with target",
+			a:      []int{1},
+			target: 1,
+			wantW:  []int{0},
+		},
+		{
+			name:   "single element array without target",
+			a:      []int{1},
+			target: 2,
+			wantW:  []int{},
+		},
+		{
+			name:   "non empty array with repetition",
+			a:      []int{1, 2, 3, 2},
+			target: 2,
+			wantW:  []int{1, 3},
+		},
+		{
+			name:   "non empty array without repetition",
+			a:      []int{1, 2, 3, 4},
+			target: 4,
+			wantW:  []int{3},
+		},
+		{
+			name:   "non empty array with all elements repeated",
+			a:      []int{1, 1, 1, 1},
+			target: 1,
+			wantW:  []int{0, 1, 2, 3},
+		},
+		{
+			name:   "non empty array with all elements repeated but target not present",
+			a:      []int{1, 1, 1, 1},
+			target: 2,
+			wantW:  []int{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			w := StoreAllOccurrence(tt.a, tt.target)
+			assert.Equalf(t, tt.wantW, w, "StoreAllOccurrence(%v, %v)", tt.a, tt.target)
+		})
+	}
+}

@@ -120,3 +120,22 @@ func CountOccurrence(a []int, target int) int {
 		return CountOccurrence(a[1:], target) + 0
 	}
 }
+
+func StoreAllOccurrence(a []int, target int) []int {
+	acct := make([]int, 0)
+	storeAllOccurrenceRec(a, target, 0, func(index int) {
+		acct = append(acct, index)
+	})
+	return acct
+}
+
+func storeAllOccurrenceRec(a []int, target int, index int, fn func(int)) {
+	if len(a) == 0 {
+		return
+	}
+	if a[0] == target {
+		fn(index)
+	}
+
+	storeAllOccurrenceRec(a[1:], target, index+1, fn)
+}
