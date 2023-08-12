@@ -727,3 +727,38 @@ func TestGetAllSubsequences(t *testing.T) {
 		})
 	}
 }
+
+func TestStrToInt(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		input string
+		want  int
+	}{
+		{
+			name:  "single digit",
+			input: "1",
+			want:  1,
+		},
+		{
+			name:  "two digit",
+			input: "12",
+			want:  12,
+		},
+		{
+			name:  "multiple digits",
+			input: "12021",
+			want:  12021,
+		},
+		{
+			name:  "multiple digits large number",
+			input: "1000000000",
+			want:  1000000000,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, StrToInt(tt.input), "StrToInt(%v)", tt.input)
+		})
+	}
+}

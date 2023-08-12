@@ -184,3 +184,11 @@ func forEachSubsequence(s string, output string, fm func(s string)) {
 	forEachSubsequence(s[1:], output, fm)
 	forEachSubsequence(s[1:], output+string(s[0]), fm)
 }
+
+func StrToInt(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+	last := int(s[len(s)-1]) - 48
+	return StrToInt(s[0:len(s)-1])*10 + last
+}
