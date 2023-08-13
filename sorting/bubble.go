@@ -11,3 +11,19 @@ func BubbleSort(input []int) {
 		}
 	}
 }
+
+func OptimizedBubbleSort(input []int) {
+
+	for count := 1; count < len(input); count++ {
+		sorted := true
+		for i := 0; i < len(input)-1; i++ {
+			if input[i] > input[i+1] {
+				util.Swap(input, i, i+1)
+				sorted = false
+			}
+		}
+		if sorted {
+			break
+		}
+	}
+}
