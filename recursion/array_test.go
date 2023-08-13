@@ -793,3 +793,44 @@ func TestAllPermutation(t *testing.T) {
 		})
 	}
 }
+
+func TestAllPermutationAlt(t *testing.T) {
+	type args struct {
+	}
+	tests := []struct {
+		name  string
+		input string
+		want  []string
+	}{
+		{
+			name:  "empty string",
+			input: "",
+			want:  []string{},
+		},
+		{
+			name:  "non empty string case 1",
+			input: "abc",
+			want:  []string{"abc", "acb", "bac", "bca", "cab", "cba"},
+		},
+		{
+			name:  "non empty string case 2",
+			input: "ab",
+			want:  []string{"ab", "ba"},
+		},
+		{
+			name:  "non empty string case 3",
+			input: "abcd",
+			want: []string{
+				"abcd", "abdc", "acbd", "acdb", "adbc", "adcb",
+				"bacd", "badc", "bcad", "bcda", "bdac", "bdca",
+				"cabd", "cadb", "cbad", "cbda", "cdab", "cdba",
+				"dabc", "dacb", "dbac", "dbca", "dcab", "dcba",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.ElementsMatch(t, tt.want, AllPermutationAlt(tt.input), "AllPermutation(%v)", tt.input)
+		})
+	}
+}

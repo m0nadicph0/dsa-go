@@ -219,3 +219,26 @@ func swap(input []byte, i int, j int) {
 	input[i] = input[j]
 	input[j] = tmp
 }
+
+func AllPermutationAlt(input string) []string {
+	result := make([]string, 0)
+	forEachPermutationAlt("", input, func(permutation string) {
+		result = append(result, permutation)
+	})
+	return result
+}
+
+func forEachPermutationAlt(soFar string, rest string, fn func(string)) {
+	if len(rest) == 0 {
+		if len(soFar) > 0 {
+			fn(soFar)
+		}
+		return
+	}
+
+	for i := 0; i < len(rest); i++ {
+		next := soFar + string(rest[i])
+		remaining := string(rest[0:i]) + string(rest[i+1:])
+		forEachPermutationAlt(next, remaining, fn)
+	}
+}
