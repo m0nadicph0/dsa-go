@@ -192,3 +192,30 @@ func StrToInt(s string) int {
 	last := int(s[len(s)-1]) - 48
 	return StrToInt(s[0:len(s)-1])*10 + last
 }
+
+func AllPermutation(input string) []string {
+	result := make([]string, 0)
+	forEachPermutation([]byte(input), 0, len(input)-1, func(s string) {
+		result = append(result, s)
+	})
+	return result
+}
+
+func forEachPermutation(input []byte, start int, end int, fn func(s string)) {
+	if start == end {
+		fn(string(input))
+		return
+	}
+
+	for i := start; i <= end; i++ {
+		swap(input, start, i)
+		forEachPermutation(input, start+1, end, fn)
+		swap(input, start, i)
+	}
+}
+
+func swap(input []byte, i int, j int) {
+	tmp := input[i]
+	input[i] = input[j]
+	input[j] = tmp
+}

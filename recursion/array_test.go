@@ -762,3 +762,34 @@ func TestStrToInt(t *testing.T) {
 		})
 	}
 }
+
+func TestAllPermutation(t *testing.T) {
+	type args struct {
+	}
+	tests := []struct {
+		name  string
+		input string
+		want  []string
+	}{
+		{
+			name:  "empty string",
+			input: "",
+			want:  []string{},
+		},
+		{
+			name:  "non empty string case 1",
+			input: "abc",
+			want:  []string{"abc", "acb", "bac", "bca", "cab", "cba"},
+		},
+		{
+			name:  "non empty string case 2",
+			input: "ab",
+			want:  []string{"ab", "ba"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.ElementsMatch(t, tt.want, AllPermutation(tt.input), "AllPermutation(%v)", tt.input)
+		})
+	}
+}
