@@ -13,6 +13,11 @@ func TestSelectionSort(t *testing.T) {
 		want  []int
 	}{
 		{
+			name:  "Case 0",
+			input: []int{3},
+			want:  []int{3},
+		},
+		{
 			name:  "Case 1",
 			input: []int{3, 2, 1},
 			want:  []int{1, 2, 3},

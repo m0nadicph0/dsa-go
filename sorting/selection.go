@@ -1,18 +1,14 @@
 package sorting
 
+import "github.com/m0nadicph0/dsa-go/util"
+
 func SelectionSort(a []int) {
 	for i := 0; i < len(a)-1; i++ {
 		value, pos := minWithPos(a, i+1)
 		if value < a[i] {
-			swap(a, i, pos)
+			util.Swap(a, i, pos)
 		}
 	}
-}
-
-func swap(a []int, u int, v int) {
-	tmp := a[u]
-	a[u] = a[v]
-	a[v] = tmp
 }
 
 func minWithPos(a []int, start int) (int, int) {
