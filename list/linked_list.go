@@ -9,6 +9,7 @@ type Node struct {
 
 type LinkedList struct {
 	head  *Node
+	tail  *Node
 	count int
 }
 
@@ -17,20 +18,14 @@ func NewLinkedList() *LinkedList {
 }
 
 func (l *LinkedList) Append(value int) {
+	newNode := &Node{Value: value, Next: nil}
+
 	if l.head == nil {
-		l.head = &Node{
-			Value: value,
-			Next:  nil,
-		}
+		l.head = newNode
+		l.tail = newNode
 	} else {
-		p := l.head
-		for p.Next != nil {
-			p = p.Next
-		}
-		p.Next = &Node{
-			Value: value,
-			Next:  nil,
-		}
+		l.tail.Next = newNode
+		l.tail = newNode
 	}
 	l.count += 1
 }

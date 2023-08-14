@@ -13,19 +13,25 @@ func TestLinkedListAppend(t *testing.T) {
 		wantElements []int
 	}{
 		{
-			name:         "Case zero",
+			name:         "Case 0",
 			input:        []int{},
 			wantSize:     0,
 			wantElements: []int{},
 		},
 		{
-			name:         "Case one",
+			name:         "Case 1",
+			input:        []int{1},
+			wantSize:     1,
+			wantElements: []int{1},
+		},
+		{
+			name:         "Case 2",
 			input:        []int{1, 2, 3, 4},
 			wantSize:     4,
 			wantElements: []int{1, 2, 3, 4},
 		},
 		{
-			name:         "Case two",
+			name:         "Case 3",
 			input:        []int{1, 2, 3, 3, 2, 1},
 			wantSize:     6,
 			wantElements: []int{1, 2, 3, 3, 2, 1},
