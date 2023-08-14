@@ -43,3 +43,29 @@ func TestBinarySearch(t *testing.T) {
 		})
 	}
 }
+
+func TestBinarySearchRange(t *testing.T) {
+
+	tests := []struct {
+		name         string
+		input        []int
+		key          int
+		wantFirstPos int
+		wantLastPos  int
+	}{
+		{
+			name:         "Case 1",
+			input:        []int{1, 2, 3, 3, 3, 3, 4, 6, 8},
+			key:          3,
+			wantFirstPos: 2,
+			wantLastPos:  5,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := BinarySearchRange(tt.input, tt.key)
+			assert.Equalf(t, tt.wantFirstPos, got, "BinarySearchRange(%v, %v)", tt.input, tt.key)
+			assert.Equalf(t, tt.wantLastPos, got1, "BinarySearchRange(%v, %v)", tt.input, tt.key)
+		})
+	}
+}
