@@ -30,6 +30,18 @@ func (l *LinkedList) Append(value int) {
 	l.count += 1
 }
 
+func (l *LinkedList) Prepend(value int) {
+	newNode := &Node{Value: value, Next: nil}
+	if l.head == nil {
+		l.head = newNode
+		l.tail = newNode
+	} else {
+		newNode.Next = l.head
+		l.head = newNode
+	}
+	l.count += 1
+}
+
 func (l *LinkedList) Size() int {
 	return l.count
 }
