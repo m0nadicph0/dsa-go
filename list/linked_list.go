@@ -97,3 +97,23 @@ func (l *LinkedList) InsertAt(index int, value int) error {
 	l.count += 1
 	return nil
 }
+
+func (l *LinkedList) DeleteAt(index int) error {
+	if l.count == 0 || index < 0 || index >= l.Size() {
+		return errors.New("index out of bounds")
+	}
+	if index == 0 {
+		l.head = l.head.Next
+		l.count -= 1
+	} else {
+		p := l.head
+		for i := 0; p != nil; i++ {
+			if i == (index - 1) {
+				p.Next = p.Next.Next
+				l.count -= 1
+			}
+			p = p.Next
+		}
+	}
+	return nil
+}

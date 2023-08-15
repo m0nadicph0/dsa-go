@@ -345,3 +345,113 @@ func TestInsertAtAndAppend(t *testing.T) {
 
 	assert.Equal(t, []int{1, 2, 3, 4}, gotElements, "list=[%v]", gotElements)
 }
+
+func TestLinkedListDeleteAt(t *testing.T) {
+	testsCases := []struct {
+		name         string
+		initial      []int
+		position     int
+		wantSize     int
+		wantElements []int
+		wantErr      bool
+	}{
+		{
+			name:         "Deleting from an empty list",
+			initial:      []int{},
+			position:     0,
+			wantSize:     0,
+			wantElements: []int{},
+			wantErr:      true,
+		},
+		{
+			name:         "Deleting from a list with one element",
+			initial:      []int{1},
+			position:     0,
+			wantSize:     0,
+			wantElements: []int{},
+			wantErr:      false,
+		},
+		{
+			name:         "Deleting the first element from a list with multiple elements",
+			initial:      []int{1, 2, 3, 4},
+			position:     0,
+			wantSize:     3,
+			wantElements: []int{2, 3, 4},
+			wantErr:      false,
+		},
+		{
+			name:         "Deleting the last element from a list with multiple elements",
+			initial:      []int{1, 2, 3, 4},
+			position:     3,
+			wantSize:     3,
+			wantElements: []int{1, 2, 3},
+			wantErr:      false,
+		},
+		{
+			name:         "Deleting an element from the middle of a list with multiple elements",
+			initial:      []int{1, 2, 3, 4, 5},
+			position:     2,
+			wantSize:     4,
+			wantElements: []int{1, 2, 4, 5},
+			wantErr:      false,
+		},
+		{
+			name:         "Deleting from an index greater than list size",
+			initial:      []int{15, 25, 35},
+			position:     3,
+			wantSize:     3,
+			wantElements: []int{15, 25, 35},
+			wantErr:      true,
+		},
+		{
+			name:         "Deleting from a negative index",
+			initial:      []int{5, 10, 15},
+			position:     -1,
+			wantSize:     3,
+			wantElements: []int{5, 10, 15},
+			wantErr:      true,
+		},
+		{
+			name:         "Deleting from a list with only one element with negative index",
+			initial:      []int{7},
+			position:     -1,
+			wantSize:     1,
+			wantElements: []int{7},
+			wantErr:      true,
+		},
+		{
+			name:         "Deleting the last element from a list with multiple elements",
+			initial:      []int{5, 10, 15},
+			position:     2,
+			wantSize:     2,
+			wantElements: []int{5, 10},
+			wantErr:      false,
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.initial {
+				list.Append(item)
+			}
+			err := list.DeleteAt(tc.position)
+
+			if tc.wantErr {
+				assert.Error(t, err, "should throw error")
+			} else {
+				assert.NoError(t, err, "should not throw error")
+			}
+
+			gotSize := list.Size()
+
+			gotElements := make([]int, 0)
+			list.ForEach(func(v int) {
+				gotElements = append(gotElements, v)
+			})
+
+			assert.Equal(t, tc.wantSize, gotSize, "list.Size()=%d", gotSize)
+			assert.Equal(t, tc.wantElements, gotElements, "list=[%v]", gotElements)
+		})
+	}
+}
