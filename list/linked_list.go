@@ -117,3 +117,14 @@ func (l *LinkedList) DeleteAt(index int) error {
 	}
 	return nil
 }
+
+func (l *LinkedList) Length() int {
+	return recLength(l.head)
+}
+
+func recLength(p *Node) int {
+	if p == nil {
+		return 0
+	}
+	return recLength(p.Next) + 1
+}

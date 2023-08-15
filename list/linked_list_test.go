@@ -455,3 +455,96 @@ func TestLinkedListDeleteAt(t *testing.T) {
 		})
 	}
 }
+
+func TestLinkedListLength(t *testing.T) {
+	testsCases := []struct {
+		name    string
+		initial []int
+		want    int
+	}{
+		{
+			name:    "Counting nodes in an empty list",
+			initial: []int{},
+			want:    0,
+		},
+		{
+			name:    "Counting nodes in a list with one element",
+			initial: []int{5},
+			want:    1,
+		},
+		{
+			name:    "Counting nodes in a list with multiple elements",
+			initial: []int{10, 20, 30, 40},
+			want:    4,
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.initial {
+				list.Append(item)
+			}
+			got := list.Length()
+			assert.Equal(t, tc.want, got, "list.Length()=%d", got)
+		})
+	}
+
+	t.Run("Counting nodes in a list after appending elements", func(t *testing.T) {
+		ll := NewLinkedList()
+		ll.Append(15)
+		ll.Append(25)
+		ll.Append(35)
+		assert.Equal(t, 3, ll.Length(), "list.Length()=%d", ll.Length())
+	})
+
+	t.Run("Counting nodes in a list after inserting elements", func(t *testing.T) {
+		ll := NewLinkedList()
+		ll.InsertAt(0, 5)
+		ll.InsertAt(1, 10)
+		ll.InsertAt(1, 15)
+		assert.Equal(t, 3, ll.Length(), "list.Length()=%d", ll.Length())
+	})
+
+	t.Run("Counting nodes in a list after deleting elements", func(t *testing.T) {
+		ll := NewLinkedList()
+		for i := 0; i < 10; i++ {
+			ll.Append(i)
+		}
+
+		for i := 0; i < 5; i++ {
+			ll.DeleteAt(i)
+		}
+		assert.Equal(t, 5, ll.Length(), "list.Length()=%d", ll.Length())
+	})
+
+	t.Run("Counting nodes after performing various operations", func(t *testing.T) {
+		ll := NewLinkedList()
+		ll.Append(1)
+		ll.Append(2)
+		ll.Prepend(0)
+		ll.Prepend(-1)
+		ll.InsertAt(0, -2)
+		ll.DeleteAt(1)
+		ll.DeleteAt(1)
+		assert.Equal(t, 3, ll.Length(), "list.Length()=%d", ll.Length())
+	})
+
+	t.Run("Counting nodes in a list with large number of elements", func(t *testing.T) {
+		ll := NewLinkedList()
+		for i := 0; i < 10000; i++ {
+			ll.Append(i)
+		}
+		assert.Equal(t, 10000, ll.Length(), "list.Length()=%d", ll.Length())
+
+	})
+
+	t.Run("Counting nodes in a list with negative values", func(t *testing.T) {
+		ll := NewLinkedList()
+		ll.Append(-5)
+		ll.Append(-10)
+		ll.Append(-15)
+		assert.Equal(t, 3, ll.Length(), "list.Length()=%d", ll.Length())
+	})
+
+}
