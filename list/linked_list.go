@@ -1,6 +1,8 @@
 package list
 
-import "errors"
+import (
+	"errors"
+)
 
 type VisitFn func(int)
 
@@ -149,4 +151,25 @@ func isPresentHelper(p *Node, value int) bool {
 		return false
 	}
 	return (p.Value == value) || isPresentHelper(p.Next, value)
+}
+
+func (l *LinkedList) Middle() (int, error) {
+	switch {
+	case l.head == nil:
+		return 0, errors.New("empty list")
+	case l.head.Next == nil:
+		return l.head.Value, nil
+	case l.head.Next.Next == nil:
+		return l.head.Value, nil
+	default:
+		fast := l.head
+		slow := l.head
+
+		for fast != nil && fast.Next != nil && fast.Next.Next != nil {
+			slow = slow.Next
+			fast = fast.Next.Next
+		}
+
+		return slow.Value, nil
+	}
 }

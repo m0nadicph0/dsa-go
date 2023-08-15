@@ -759,3 +759,77 @@ func TestLinkedListIsPresentRec(t *testing.T) {
 	})
 
 }
+
+func TestLinkedListMiddle(t *testing.T) {
+	testsCases := []struct {
+		name    string
+		initial []int
+		want    int
+		wantErr bool
+	}{
+		{
+			name:    "Finding the middle element in an empty list",
+			initial: []int{},
+			want:    0,
+			wantErr: true,
+		},
+		{
+			name:    "Finding the middle element in a list with one element",
+			initial: []int{10},
+			want:    10,
+			wantErr: false,
+		},
+		{
+			name:    "Finding the middle element in a list with two elements (even length)",
+			initial: []int{5, 15},
+			want:    5,
+			wantErr: false,
+		},
+		{
+			name:    "Finding the middle element in a list with three elements (odd length)",
+			initial: []int{8, 16, 24},
+			want:    16,
+			wantErr: false,
+		},
+		{
+			name:    "Finding the middle element in a list with four elements (even length)",
+			initial: []int{5, 10, 15, 20},
+			want:    10,
+			wantErr: false,
+		},
+		{
+			name:    "Finding the middle element in a list with 6 elements (even length)",
+			initial: []int{5, 10, 15, 20, 30, 40},
+			want:    15,
+			wantErr: false,
+		},
+		{
+			name:    "Finding the middle element in a list with 11 elements (odd length)",
+			initial: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
+			want:    6,
+			wantErr: false,
+		},
+		{
+			name:    "Finding the middle element in a list with 14 elements (even length)",
+			initial: []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14},
+			want:    7,
+			wantErr: false,
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.initial {
+				list.Append(item)
+			}
+			got, err := list.Middle()
+			if tc.wantErr {
+				assert.Error(t, err)
+			} else {
+				assert.NoError(t, err)
+			}
+			assert.Equal(t, tc.want, got, "list.Middle()=%d", got)
+		})
+	}
+}
