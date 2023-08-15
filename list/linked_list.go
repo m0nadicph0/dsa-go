@@ -139,3 +139,14 @@ func (l *LinkedList) IsPresent(value int) bool {
 	}
 	return false
 }
+
+func (l *LinkedList) IsPresentRec(value int) bool {
+	return isPresentHelper(l.head, value)
+}
+
+func isPresentHelper(p *Node, value int) bool {
+	if p == nil {
+		return false
+	}
+	return (p.Value == value) || isPresentHelper(p.Next, value)
+}
