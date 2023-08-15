@@ -128,3 +128,14 @@ func recLength(p *Node) int {
 	}
 	return recLength(p.Next) + 1
 }
+
+func (l *LinkedList) IsPresent(value int) bool {
+	p := l.head
+	for p != nil {
+		if p.Value == value {
+			return true
+		}
+		p = p.Next
+	}
+	return false
+}

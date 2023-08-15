@@ -548,3 +548,108 @@ func TestLinkedListLength(t *testing.T) {
 	})
 
 }
+
+func TestLinkedListIsPresent(t *testing.T) {
+	testsCases := []struct {
+		name    string
+		initial []int
+		value   int
+		want    bool
+	}{
+		{
+			name:    "Checking for presence in an empty list",
+			initial: []int{},
+			value:   5,
+			want:    false,
+		},
+		{
+			name:    "Checking for presence in a list with one element (element present)",
+			initial: []int{10},
+			value:   10,
+			want:    true,
+		},
+		{
+			name:    "Checking for presence in a list with one element (element not present)",
+			initial: []int{20},
+			value:   5,
+			want:    false,
+		},
+		{
+			name:    "Checking for presence in a list with multiple elements (element present)",
+			initial: []int{5, 10, 15, 20},
+			value:   15,
+			want:    true,
+		},
+		{
+			name:    "Checking for presence in a list with multiple elements (element not present)",
+			initial: []int{5, 10, 15, 20},
+			value:   25,
+			want:    false,
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.initial {
+				list.Append(item)
+			}
+			got := list.IsPresent(tc.value)
+			assert.Equal(t, tc.want, got, "list.IsPresent(%d)=%t", tc.value, got)
+		})
+	}
+
+	t.Run("Checking for presence after appending an element (element present)", func(t *testing.T) {
+		list := NewLinkedList()
+		list.Append(7)
+		list.Append(14)
+		list.Append(21)
+		valueToCheck := 21
+		got := list.IsPresent(valueToCheck)
+		assert.Equal(t, true, got, "list.IsPresent(%d)=%t", valueToCheck, got)
+	})
+
+	t.Run("Checking for presence after inserting an element (element present)", func(t *testing.T) {
+		list := NewLinkedList()
+		for _, i := range []int{3, 6, 12} {
+			list.Append(i)
+		}
+		_ = list.InsertAt(2, 9)
+
+		valueToCheck := 9
+		got := list.IsPresent(valueToCheck)
+		assert.Equal(t, true, got, "list.IsPresent(%d)=%t", valueToCheck, got)
+	})
+
+	t.Run("Checking for presence after deleting an element (element not present)", func(t *testing.T) {
+		list := NewLinkedList()
+		for _, i := range []int{5, 10, 15} {
+			list.Append(i)
+		}
+		_ = list.DeleteAt(1)
+
+		valueToCheck := 10
+		got := list.IsPresent(valueToCheck)
+		assert.Equal(t, false, got, "list.IsPresent(%d)=%t", valueToCheck, got)
+	})
+
+	t.Run("Checking for presence in a list with large number of elements", func(t *testing.T) {
+		list := NewLinkedList()
+		for i := 0; i < 10000; i++ {
+			list.Append(i)
+		}
+		valueToCheck := 5000
+		got := list.IsPresent(valueToCheck)
+		assert.Equal(t, true, got, "list.IsPresent(%d)=%t", valueToCheck, got)
+	})
+
+	t.Run("Checking for presence of a negative element", func(t *testing.T) {
+		list := NewLinkedList()
+		for _, i := range []int{-5, -10, -15} {
+			list.Append(i)
+		}
+		valueToCheck := -10
+		got := list.IsPresent(valueToCheck)
+		assert.Equal(t, true, got, "list.IsPresent(%d)=%t", valueToCheck, got)
+	})
+}
