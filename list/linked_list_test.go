@@ -833,3 +833,89 @@ func TestLinkedListMiddle(t *testing.T) {
 		})
 	}
 }
+
+func TestLinkedListReverse(t *testing.T) {
+	testsCases := []struct {
+		name    string
+		initial []int
+		want    []int
+	}{
+		{
+			name:    "Reversing an empty list",
+			initial: []int{},
+			want:    []int{},
+		},
+		{
+			name:    "Reversing a list with one element",
+			initial: []int{5},
+			want:    []int{5},
+		},
+		{
+			name:    "Reversing a list with two elements",
+			initial: []int{10, 20},
+			want:    []int{20, 10},
+		},
+		{
+			name:    "Reversing a list with multiple elements",
+			initial: []int{5, 10, 15, 20},
+			want:    []int{20, 15, 10, 5},
+		},
+		{
+			name:    "Reversing a list with odd number of elements",
+			initial: []int{5, 10, 15, 20, 25},
+			want:    []int{25, 20, 15, 10, 5},
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.initial {
+				list.Append(item)
+			}
+			list.Reverse()
+			got := make([]int, 0)
+			list.ForEach(func(v int) {
+				got = append(got, v)
+			})
+
+			assert.Equal(t, tc.want, got, "list.Reverse()=[%v]", got)
+		})
+	}
+
+	t.Run("", func(t *testing.T) {
+		list := NewLinkedList()
+		list.Append(7)
+		list.Append(14)
+		list.Append(21)
+		list.Append(28)
+		list.InsertAt(2, 42)
+		list.DeleteAt(3)
+
+		list.Reverse()
+
+		got := make([]int, 0)
+		list.ForEach(func(v int) {
+			got = append(got, v)
+		})
+
+		assert.Equal(t, []int{28, 42, 14, 7}, got)
+	})
+
+	t.Run("Reversing a list with large number of elements", func(t *testing.T) {
+		list := NewLinkedList()
+		for i := 0; i < 10000; i++ {
+			list.Append(i + 1)
+		}
+		list.Reverse()
+		assert.Equal(t, 10000, list.Size())
+		got := make([]int, 0)
+		list.ForEach(func(v int) {
+			got = append(got, v)
+		})
+
+		assert.Equal(t, 10000, got[0])
+		assert.Equal(t, 1, got[len(got)-1])
+		assert.Equal(t, 10000, len(got))
+	})
+}

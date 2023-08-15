@@ -173,3 +173,18 @@ func (l *LinkedList) Middle() (int, error) {
 		return slow.Value, nil
 	}
 }
+
+func (l *LinkedList) Reverse() {
+
+	var previous, current, next *Node
+	current = l.head
+	l.tail = l.head
+
+	for current != nil {
+		next = current.Next
+		current.Next = previous
+		previous = current
+		current = next
+	}
+	l.head = previous
+}
