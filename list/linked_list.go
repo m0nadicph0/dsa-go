@@ -1,5 +1,7 @@
 package list
 
+import "errors"
+
 type VisitFn func(int)
 
 type Node struct {
@@ -63,4 +65,35 @@ func (l *LinkedList) Get(n int) int {
 		p = p.Next
 	}
 	return -1
+}
+
+func (l *LinkedList) InsertAt(index int, value int) error {
+	if index < 0 || index > l.Size() {
+		return errors.New("index out of bounds")
+	}
+
+	newNode := &Node{Value: value, Next: nil}
+
+	if index == 0 {
+		newNode.Next = l.head
+		l.head = newNode
+		if newNode.Next == nil {
+			l.tail = newNode
+		}
+	} else {
+		p := l.head
+		for i := 0; p != nil; i++ {
+			if i == (index - 1) {
+				newNode.Next = p.Next
+				p.Next = newNode
+				if newNode.Next == nil {
+					l.tail = newNode
+				}
+			}
+			p = p.Next
+		}
+	}
+
+	l.count += 1
+	return nil
 }

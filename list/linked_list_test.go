@@ -223,3 +223,125 @@ func TestLinkedListGet(t *testing.T) {
 		})
 	}
 }
+
+func TestLinkedListInsertAt(t *testing.T) {
+	testsCases := []struct {
+		name         string
+		initial      []int
+		value        int
+		position     int
+		wantSize     int
+		wantElements []int
+		wantErr      bool
+	}{
+		{
+			name:         "Case 0",
+			initial:      []int{},
+			value:        2,
+			position:     0,
+			wantSize:     1,
+			wantElements: []int{2},
+			wantErr:      false,
+		},
+		{
+			name:         "Case 1",
+			initial:      []int{1, 2, 3},
+			value:        4,
+			position:     1,
+			wantSize:     4,
+			wantElements: []int{1, 4, 2, 3},
+			wantErr:      false,
+		},
+		{
+			name:         "Case 2",
+			initial:      []int{1, 2, 3},
+			value:        0,
+			position:     0,
+			wantSize:     4,
+			wantElements: []int{0, 1, 2, 3},
+			wantErr:      false,
+		},
+		{
+			name:         "Case 3",
+			initial:      []int{1, 2, 3},
+			value:        4,
+			position:     3,
+			wantSize:     4,
+			wantElements: []int{1, 2, 3, 4},
+			wantErr:      false,
+		},
+		{
+			name:         "Case 4",
+			initial:      []int{1, 2, 3},
+			value:        4,
+			position:     -1,
+			wantSize:     3,
+			wantElements: []int{1, 2, 3},
+			wantErr:      true,
+		},
+		{
+			name:         "Case 5",
+			initial:      []int{1, 2, 3},
+			value:        4,
+			position:     4,
+			wantSize:     3,
+			wantElements: []int{1, 2, 3},
+			wantErr:      true,
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.initial {
+				list.Append(item)
+			}
+			err := list.InsertAt(tc.position, tc.value)
+			if tc.wantErr {
+				assert.Error(t, err, "should throw error")
+			} else {
+				assert.NoError(t, err, "should not throw error")
+			}
+			gotSize := list.Size()
+			gotElements := make([]int, 0)
+			list.ForEach(func(v int) {
+				gotElements = append(gotElements, v)
+			})
+			assert.Equal(t, tc.wantSize, gotSize, "list.Size()=%d", gotSize)
+			assert.Equal(t, tc.wantElements, gotElements, "list=[%v]", gotElements)
+		})
+	}
+}
+
+func TestInsertAtAndPrepend(t *testing.T) {
+	ll := NewLinkedList()
+	ll.InsertAt(0, 1)
+	ll.Prepend(2)
+	ll.InsertAt(0, 3)
+
+	assert.Equal(t, 3, ll.Size(), "list.Size()=%d", ll.Size())
+
+	gotElements := make([]int, 0)
+	ll.ForEach(func(v int) {
+		gotElements = append(gotElements, v)
+	})
+
+	assert.Equal(t, []int{3, 2, 1}, gotElements, "list=[%v]", gotElements)
+}
+
+func TestInsertAtAndAppend(t *testing.T) {
+	ll := NewLinkedList()
+	ll.InsertAt(0, 1)
+	ll.Append(2)
+	ll.InsertAt(2, 3)
+	ll.Append(4)
+
+	assert.Equal(t, 4, ll.Size(), "list.Size()=%d", ll.Size())
+
+	gotElements := make([]int, 0)
+	ll.ForEach(func(v int) {
+		gotElements = append(gotElements, v)
+	})
+
+	assert.Equal(t, []int{1, 2, 3, 4}, gotElements, "list=[%v]", gotElements)
+}
