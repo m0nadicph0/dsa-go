@@ -53,3 +53,14 @@ func (l *LinkedList) ForEach(fn VisitFn) {
 		p = p.Next
 	}
 }
+
+func (l *LinkedList) Get(n int) int {
+	p := l.head
+	for i := 0; p != nil; i++ {
+		if i == n {
+			return p.Value
+		}
+		p = p.Next
+	}
+	return -1
+}

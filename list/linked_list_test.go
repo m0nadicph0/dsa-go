@@ -95,7 +95,7 @@ func TestLinkedListPrepend(t *testing.T) {
 			for _, item := range tc.input {
 				list.Prepend(item)
 			}
-			gotSize := tc.wantSize
+			gotSize := list.Size()
 			gotElements := make([]int, 0)
 			list.ForEach(func(value int) {
 				gotElements = append(gotElements, value)
@@ -155,7 +155,7 @@ func TestLinkedListPrependAndAppend(t *testing.T) {
 				list.Append(item)
 			}
 
-			gotSize := tc.wantSize
+			gotSize := list.Size()
 			gotElements := make([]int, 0)
 			list.ForEach(func(value int) {
 				gotElements = append(gotElements, value)
@@ -163,6 +163,63 @@ func TestLinkedListPrependAndAppend(t *testing.T) {
 
 			assert.Equal(t, tc.wantSize, gotSize)
 			assert.Equal(t, tc.wantElements, gotElements)
+		})
+	}
+}
+
+func TestLinkedListGet(t *testing.T) {
+	testsCases := []struct {
+		name   string
+		input  []int
+		target int
+		want   int
+	}{
+		{
+			name:   "Case 0",
+			input:  []int{},
+			target: 0,
+			want:   -1,
+		},
+		{
+			name:   "Case 1",
+			input:  []int{1},
+			target: 0,
+			want:   1,
+		},
+		{
+			name:   "Case 2",
+			input:  []int{1, 2, 3, 4},
+			target: 3,
+			want:   4,
+		},
+		{
+			name:   "Case 3",
+			input:  []int{1, 2, 3, 3, 2, 1},
+			target: 3,
+			want:   3,
+		},
+		{
+			name:   "Case 4",
+			input:  []int{1, 2, 3, 3, 2, 1},
+			target: 0,
+			want:   1,
+		},
+		{
+			name:   "Case 5",
+			input:  []int{1, 2, 3, 4},
+			target: 4,
+			want:   -1,
+		},
+	}
+
+	for _, tc := range testsCases {
+		t.Run(tc.name, func(t *testing.T) {
+			list := NewLinkedList()
+			for _, item := range tc.input {
+				list.Append(item)
+			}
+			got := list.Get(tc.target)
+			assert.Equal(t, tc.want, got, "list.Get(%d)=%d", tc.target, got)
 		})
 	}
 }
