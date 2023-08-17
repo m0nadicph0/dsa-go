@@ -62,6 +62,13 @@ func TestKnapsack(t *testing.T) {
 			capacity: 15,
 			want:     19,
 		},
+		{
+			name:     "Case 7",
+			weights:  []int{4, 5, 1},
+			values:   []int{1, 2, 3},
+			capacity: 4,
+			want:     3,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
