@@ -1,5 +1,6 @@
 package fibonacci
 
+// Fibonacci brute force recursion
 func Fibonacci(n int) int {
 	if n <= 1 {
 		return n
@@ -7,6 +8,7 @@ func Fibonacci(n int) int {
 	return Fibonacci(n-2) + Fibonacci(n-1)
 }
 
+// MemoFibonacci memoised solution
 func MemoFibonacci(n int) int {
 	return memoFibonacciHelper(n, make(map[int]int))
 }
@@ -28,6 +30,7 @@ func memoFibonacciHelper(n int, memo map[int]int) int {
 	return computedValue
 }
 
+// BottomUpDPFibonacci bottom up DP
 func BottomUpDPFibonacci(n int) interface{} {
 	if n <= 1 {
 		return n

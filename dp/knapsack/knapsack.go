@@ -1,5 +1,6 @@
 package knapsack
 
+// Knapsack brute force recursion
 func Knapsack(weights []int, values []int, capacity int) int {
 	// Base case: no items left or knapsack capacity is 0
 	if len(weights) == 0 || capacity == 0 {

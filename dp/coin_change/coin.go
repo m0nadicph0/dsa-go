@@ -1,5 +1,6 @@
 package coin_change
 
+// CoinChange Brute force recursion
 func CoinChange(coins []int, amount int) int {
 
 	if amount == 0 {
