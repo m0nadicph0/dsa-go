@@ -22,3 +22,30 @@ func forEachPermutation(input []int, start int, end int, fn visitFn) {
 		util.Swap(input, start, i)
 	}
 }
+
+func PermutationsNK(input []int, k int) [][]int {
+	result := make([][]int, 0)
+	forEachPermutationNK(input, []int{}, make([]bool, len(input)), k, func(perm []int) {
+		result = append(result, util.MakeCopy(perm))
+	})
+	return result
+}
+
+func forEachPermutationNK(items []int, current []int, used []bool, k int, fn visitFn) {
+	if len(current) == k {
+		fn(current)
+		return
+	}
+
+	for i := 0; i < len(items); i++ {
+		if used[i] {
+			continue
+		}
+
+		used[i] = true
+		current = append(current, items[i])
+		forEachPermutationNK(items, current, used, k, fn)
+		used[i] = false
+		current = current[:len(current)-1]
+	}
+}
