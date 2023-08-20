@@ -1,13 +1,14 @@
 package backtrack
 
+import "github.com/m0nadicph0/dsa-go/util"
+
 type VisitFn func([]int)
 
 func subsets(nums []int) [][]int {
 	result := make([][]int, 0)
-	forEachSubset(nums, []int{}, func(ss []int) {
-		tmp := make([]int, len(ss))
-		copy(tmp, ss)
-		result = append(result, tmp)
+	forEachSubset(nums, []int{}, func(subset []int) {
+
+		result = append(result, util.MakeCopy(subset))
 	})
 	return result
 }

@@ -5,3 +5,9 @@ func Swap(a []int, u int, v int) {
 	a[u] = a[v]
 	a[v] = tmp
 }
+
+func MakeCopy(xs []int) []int {
+	tmp := make([]int, len(xs))
+	copy(tmp, xs)
+	return tmp
+}

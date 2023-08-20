@@ -1,13 +1,13 @@
 package backtrack
 
+import "github.com/m0nadicph0/dsa-go/util"
+
 type visitFn func([]int)
 
 func Combinations(input []int, k int) [][]int {
 	result := make([][]int, 0)
 	forEachCombination(input, k, 0, []int{}, func(combination []int) {
-		tmp := make([]int, len(combination))
-		copy(tmp, combination)
-		result = append(result, tmp)
+		result = append(result, util.MakeCopy(combination))
 	})
 	return result
 }
