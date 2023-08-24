@@ -12,15 +12,15 @@ func Combinations(input []int, k int) [][]int {
 	return result
 }
 
-func forEachCombination(input []int, k int, start int, combination []int, fn visitFn) {
-	if k == 0 {
-		fn(combination)
+func forEachCombination(input []int, k int, start int, current []int, fn visitFn) {
+	if k == len(current) {
+		fn(current)
 		return
 	}
 
 	for i := start; i < len(input); i++ {
-		combination = append(combination, input[i])
-		forEachCombination(input, k-1, i+1, combination, fn)
-		combination = combination[:len(combination)-1] // backtrack
+		current = append(current, input[i])
+		forEachCombination(input, k, i+1, current, fn)
+		current = current[:len(current)-1]
 	}
 }
