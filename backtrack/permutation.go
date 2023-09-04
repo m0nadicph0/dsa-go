@@ -1,6 +1,9 @@
 package backtrack
 
-import "github.com/m0nadicph0/dsa-go/util"
+import (
+	"github.com/m0nadicph0/dsa-go/util"
+	"sort"
+)
 
 func Permutations(input []int) [][]int {
 	result := make([][]int, 0)
@@ -45,6 +48,40 @@ func forEachPermutationNK(items []int, current []int, used []bool, k int, fn vis
 		used[i] = true
 		current = append(current, items[i])
 		forEachPermutationNK(items, current, used, k, fn)
+		used[i] = false
+		current = current[:len(current)-1]
+	}
+}
+
+func UniquePermutations(input []int) [][]int {
+	result := make([][]int, 0)
+	// Sort the input to handle duplicates efficiently
+	sort.Ints(input)
+
+	forEachUniquePermutations(input, make([]bool, len(input)), []int{}, func(perms []int) {
+		result = append(result, util.MakeCopy(perms))
+	})
+
+	return result
+}
+
+func forEachUniquePermutations(input []int, used []bool, current []int, fn func([]int)) {
+	if len(current) == len(input) {
+		fn(current)
+		return
+	}
+
+	for i := 0; i < len(input); i++ {
+		// Skip duplicates
+		if used[i] || (i > 0 && input[i] == input[i-1] && !used[i-1]) {
+			continue
+		}
+
+		used[i] = true
+		current = append(current, input[i])
+
+		forEachUniquePermutations(input, used, current, fn)
+
 		used[i] = false
 		current = current[:len(current)-1]
 	}

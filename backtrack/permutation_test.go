@@ -98,3 +98,28 @@ func TestPermutationsNK(t *testing.T) {
 		})
 	}
 }
+
+func TestUniquePermutations(t *testing.T) {
+
+	tests := []struct {
+		name  string
+		input []int
+		want  [][]int
+	}{
+		{
+			name:  "Duplicate",
+			input: []int{1, 1, 2},
+			want:  [][]int{{1, 1, 2}, {1, 2, 1}, {2, 1, 1}},
+		},
+		{
+			name:  "Unique",
+			input: []int{1, 2, 3},
+			want:  [][]int{{1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, UniquePermutations(tt.input), "UniquePermutations(%v)", tt.input)
+		})
+	}
+}
