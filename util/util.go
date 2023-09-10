@@ -11,3 +11,10 @@ func MakeCopy(xs []int) []int {
 	copy(tmp, xs)
 	return tmp
 }
+
+func Max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
