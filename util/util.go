@@ -1,5 +1,7 @@
 package util
 
+import "strconv"
+
 func Swap(a []int, u int, v int) {
 	tmp := a[u]
 	a[u] = a[v]
@@ -25,4 +27,9 @@ func Sum(nums []int) int {
 		sum += num
 	}
 	return sum
+}
+
+func StrToInt(s string) int {
+	value, _ := strconv.Atoi(s)
+	return value
 }
