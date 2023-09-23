@@ -14,7 +14,14 @@ func MakeCopy(xs []int) []int {
 	return tmp
 }
 
-func Max(a, b int) int {
+func Max(nums ...int) int {
+	if len(nums) == 1 {
+		return nums[0]
+	}
+	return max(nums[0], Max(nums[1:]...))
+}
+
+func max(a, b int) int {
 	if a > b {
 		return a
 	}
