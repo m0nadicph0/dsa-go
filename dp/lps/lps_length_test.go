@@ -29,8 +29,28 @@ func TestLongestPalindromicSubsequence(t *testing.T) {
 		},
 		{
 			name:  "Case 4",
-			input: "bananas",
-			want:  5,
+			input: "BBABCBCAB",
+			want:  7,
+		},
+		{
+			name:  "Case 5",
+			input: "bebeeed",
+			want:  4,
+		},
+		{
+			name:  "Case 6",
+			input: "abcde",
+			want:  1,
+		},
+		{
+			name:  "Case 7",
+			input: "abbaab",
+			want:  4,
+		},
+		{
+			name:  "Case 8",
+			input: "aa",
+			want:  2,
 		},
 	}
 	for _, tt := range tests {
