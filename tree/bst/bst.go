@@ -84,3 +84,6 @@ func inorderRecursive(node *Node, fn VisitFn) {
 func NewBST() *BST {
 	return &BST{root: nil}
 }
+func (b *BST) Root() *Node {
+	return b.root
+}
